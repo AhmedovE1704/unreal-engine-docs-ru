@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Что такое полигруппы</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="uptab">
+		<img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+	</div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+	   <h1>Что такое полигруппы<h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Узнайте, как использовать полигруппы и создавать их.<h2>
+    </div>
+
+	<div class="cardHero">	
+        <img src="icons/hero.png (2).png" height="150">
+    </div>
+    <div class="container">
+          <div class="container">
+            <div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+    <p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+<p>В разделе Обзор режима моделирования вы познакомитесь с PolyGroups, а в руководстве Быстрый старт узнаете, как использовать некоторые инструменты для назначения PolyGroups. Мы рекомендуем ознакомиться с этими двумя документами, прежде чем двигаться дальше.
+
+В этом руководстве мы подробнее рассмотрим инструменты для создания полигрупп и способы их использования в других инструментах и скриптах. Цель этого руководства — помочь вам разобраться в полигруппах, чтобы выстроить эффективный рабочий процесс для создания и редактирования геометрии в движке.</p>
+<h1 class="contenth">Зачем нужны полигруппы и что они из себя представляют</h1>
+<h2 class="contenth">Зачем</h2>
+<p>В традиционных программах для моделирования есть возможность использовать полигональное моделирование. Однако Unreal Engine отображает все модели в виде триангулированных сеток.</p>
+<img src="icons/Снимок экрана 2026-04-26 224006.png" width="700">
+<p>Преобразование в треугольники означает, что Unreal Engine изначально не распознает четырехугольники и многоугольники, поэтому треугольники являются основой для моделирования в движке. Чтобы приблизиться к традиционному процессу моделирования, можно использовать PolyGroups.</p>
+<h2 class="contenth">Что</h2>
+<p>PolyGroups — это набор сгруппированных треугольников. Группы можно использовать для:</p>
+<ul>
+    <p><li>UV-развертка</li></p>
+    <p><li>Организация материала</li></p>
+    <p><li>Моделирование и деформация</li></p>
+    <p><li>Традиционное моделирование с помощью четырехугольников</li></p>
+    <p><li>Создание и редактирование весов кожи</li></p>
+</ul>
+<p>Например, используя куб импортированный из Maya, мы назначаем каждому треугольнику отдельную PolyGroup с помощью инструмента Tri Select в категории Mesh.</p>
+<video src="icons/2026-04-26 22-41-53.mp4" width="700" controls></video>
+<p class="block-callout-inner">Чтобы визуализировать полигруппы на сетке, установите для параметра Режим отображения цвета граней значение По группам.</p>
+<p>После настройки полигрупп вы можете использовать инструмент Редактирование полигрупп в категории Модель. Однако каждая из текущих полигрупп представляет собой отдельный треугольник, что не совсем подходит для использования инструмента «Редактирование полигрупп».</p>
+<img src="icons/Снимок экрана 2026-04-26 224308.png" width="700">
+<p>Если объединить два треугольника в одну PolyGroup, получится четырехугольник.</p>
+<video src="icons/2026-04-26 22-43-44.mp4" width="700" controls></video>
+<p>В этом видео с помощью Merge создается новая PolyGroup, состоящая из двух треугольников.
+
+При работе с низкополигональными сетками и блочными моделями PolyGroups позволяют взаимодействовать с более интуитивно понятными поверхностями, чем с отдельными треугольниками. Однако PolyGroups можно применять и к высокополигональным сеткам, чтобы упростить работу со сложными геометрическими объектами, которые в противном случае было бы сложно редактировать.</p>
+<h1 class="contenth">Анатомия PolyGroup</h1>
+<p>PolyGroup состоит из трех элементов, которые можно выбирать и редактировать:</p>
+<ul>
+    <p><li>Лицо: область PolyGroup.</li></p>
+    <p><li>Вершина: точка соединения ребер. Также называется углом.</li></p>
+    <p><li>Ребро: граница между PolyGroup.</li></p>
+</ul>
+<p>При группировке треугольников для создания PolyGroup вокруг них образуется граничное ребро. В зависимости от топологии вашей сетки и сгенерированных PolyGroup редактирование ребер сетки может работать не так, как вы ожидаете, по сравнению с другими программами для создания цифрового контента (Digital Content Creation, DCC).
+
+На изображении ниже сетка состоит из двух полигрупп, представленных выделенным ребром границы. Несмотря на то, что из-за изогнутой формы граница полигрупп выглядит как несколько ребер, она не состоит из вершин полигрупп, а включает в себя только одно ребро полигруппы.</p>
+<img src="icons/Снимок экрана 2026-04-26 224812.png" width="700">
+<p>Ребра и вершины PolyGroup генерируются при соблюдении следующих условий:</p>
+<ul>
+    <p><li>Две или более соединяющиеся грани PolyGroup (или граница сетки) образуют ребро PolyGroup.</li></p>
+    <p><li>Три или более соединяющихся ребра PolyGroup образуют вершину PolyGroup.</li></p>
+</ul>
+<h1 class="contenth">Создание полигрупп</h1>
+<p>Чтобы лучше разобраться в полигруппах, нужно знать, какие инструменты можно использовать для их создания. Порядок использования этих инструментов зависит от вашего рабочего процесса и потребностей. Важно помнить, что в качестве полигруппы можно использовать любой набор треугольников.</p>
+<h2 class="contenth">Инструмент выбора треугольников</h2>
+<p>Как показано на видео выше, с помощью инструмента Tri Select можно назначить полигруппу одному или нескольким треугольникам. Вместо того чтобы выделять по одному треугольнику в PolyGroup, мы теперь выделяем по два, чтобы выполнять редактирование четырехугольников с помощью инструмента PolyGroup Edit.</p>
+<video src="icons/2026-04-26 22-49-33.mp4" width="700" controls></video>
+<p>На видео при пересечении каждой краевой петли создаются новые полигруппы.</p>
+<p class="block-callout-inner">Треугольники, которым не назначена PolyGroup, автоматически объединяются в одну группу.</p>
+<h2 class="contenth">Объединить</h2>
+<p>При использовании инструмента Редактирование полигрупп вы можете продолжить объединять существующие полигруппы в новую.</p>
+<p class="block-callout-inner">Процесс объединения существующих полигрупп является разрушительным, то есть прежние полигруппы перестанут существовать.</p>
+<video src="icons/2026-04-26 22-51-32.mp4" width="700" controls></video>
+<p>В видео каждое лицо представляет собой полигруппу, и вы можете объединять лица с помощью функции «Объединить».</p>
+<h2 class="contenth">Инструмент «Рисование полигрупп»</h2>
+<p>Существуют специальные инструменты для создания полигрупп, в том числе инструмент Рисование полигрупп, с помощью которого можно интерактивно рисовать группы.</p>
+<video src="icons/2026-04-26 22-52-36.mp4" width="700" controls></video>
+<p>В видео инструмент Paint PolyGroup создает новые полигруппы, состоящие из двух треугольников. Показать каркас включено для визуализации двух треугольников в каждой полигруппе.</p>
+<p>С помощью параметра Действие можно выбрать любой из следующих режимов выделения:</p>
+<ul>
+    <p><li>Кисть</li></p>
+    <p><li>Заливка</li></p>
+    <p><li>Заливка группы</li></p>
+    <p><li>Лассо</li></p>
+</ul>
+<p class="block-callout-inner">Чтобы узнать, какая PolyGroup назначена, наведите курсор на указанную PolyGroup и нажмите горячую клавишу Shit + G. В строке Set Group отобразится соответствующее число.</p>
+<h2 class="contenth">Инструмент «Создать полигруппы»</h2>
+<p>Еще один специализированный инструмент для группировки треугольников — Создать полигруппы. Полигруппы автоматически назначаются при открытии инструмента. Способ назначения полигрупп определяется режимом преобразования.</p>
+<img src="icons/Снимок экрана 2026-04-26 225427.png" width="700">
+<img src="icons/Снимок экрана 2026-04-26 225450.png" width="700">
+<p>С помощью выводного слоя можно создать новый слой PolyGroup.</p>
+<h2 class="contenth">Предустановленные фигуры</h2>
+<p>При создании предустановленных фигур в категории Создать вы можете настроить PolyGroups для новых сеток с помощью параметра Режим PolyGroup.</p>
+<img src="icons/Снимок экрана 2026-04-26 225526.png" width="700">
+<p>В режиме Polygroup доступны следующие варианты группировки:</p>
+<img src="icons/Снимок экрана 2026-04-26 225553.png" width="700">
+<h2 class="contenth">Слои PolyGroup</h2>
+<p>Поскольку PolyGroups могут быть произвольными, вы можете создать несколько слоев PolyGroup для работы с разными наборами на одной и той же модели. Эти слои можно настроить с помощью инструмента Редактировать атрибуты в категории Атрибуты.</p>
+<p class="block-callout-inner">Слои PolyGroup не являются универсальными для вашего проекта. Вместо этого вы создаете их для отдельных статических объектов. Это означает, что нельзя предполагать, что у двух разных объектов будут одинаковые слои PolyGroup. Однако это также означает, что вы можете определять их по мере необходимости в каждом конкретном случае.</p>
+<h1 class="contenth">Использование полигрупп</h1>
+<h2 class="contenth">Создание фигур</h2>
+<p>Основное назначение полигрупп — редактирование геометрии, как показано с помощью инструмента Редактирование полигрупп.</p>
+<p>Полигруппы также помогают при создании сетки:</p>
+<ul>
+    <p><li>Точные региональные изменения.</li></p>
+    <video src="icons/2026-04-26 22-57-42.mp4" width="700" controls></video>
+    <p>Четыре полигруппы объединены в одну для выдавливания.</p>
+    <p><li>Создание отверстия.</li></p>
+    <video src="icons/2026-04-26 22-59-16.mp4" width="700" controls></video>
+    <p><li>Сглаживание сетки с помощью инструмента Subdivide.</li></p> 
+    <img src="icons/Снимок экрана 2026-04-26 230459.png" width="700">
+    <p><li>Создание деформаций с помощью инструмента Deform PolyGroups.</li></p>
+    <video src="icons/2026-04-26 23-05-32.mp4" width="700" controls></video>
+    <p class="block-callout-inner">Внутренние вершины PolyGroup не выделяются, только граничные. Чтобы выделить внутренние вершины, используйте Decompose для деконструкции PolyGroup.</p>
+</ul>
+<h2 class="contenth">Создание UV-разверток</h2>
+<p>Для создания UV-разверток модели можно использовать PolyGroups. В руководстве Быстрый старт в режиме моделирования к ящику назначаются шесть PolyGroups (по одной на каждую сторону). Затем на основе существующих PolyGroups создаются UV-островки.</p>
+<img src="icons/Снимок экрана 2026-04-26 230643.png" width="700">
+<p>Затем вы можете использовать инструменты UV-развертки для дальнейшего разделения UV-развертки или добавить новые полигруппы.</p>
+<img src="icons/Снимок экрана 2026-04-26 230714.png" width="700">
+<p>Теперь при развертывании модели создается больше UV-островков.</p>
+<img src="icons/Снимок экрана 2026-04-26 230746.png" width="700">
+<p>Чтобы узнать больше об инструментах UV-развертки, обратитесь к документации по категории UV-развертки.</p>
+<h2 class="contenth">Назначение нескольких материалов для одной сетки</h2>
+<p>Вы можете назначить несколько материалов для своей геометрии с помощью инструмента Редактировать материалы. Чтобы наглядно увидеть, каким треугольникам нужно назначить материал, вы можете выбрать полигруппы в режиме цвета граней, что особенно удобно при работе с сетками высокой плотности.</p>
+<video src="icons/2026-04-26 23-08-36.mp4" width="700" controls></video>
+<h2 class="contenth">Часто задаваемые вопросы</h2>
+<p><b>Можно ли очистить все полигруппы, чтобы начать заново?</b>
+
+Да, для этого нужно воспользоваться опцией Очистить все в инструменте Рисование полигрупп.
+
+<b>Имеет ли значение, если у меня есть полигруппы, состоящие из одного треугольника?</b>
+
+Несмотря на то, что вы по-прежнему можете редактировать сетку с помощью таких инструментов, как PolyGroup Edit, это может привести к неожиданным результатам. Например, при добавлении реберной петли к сетке, в которой верхняя сторона состоит из двух полигрупп, содержащих по одному треугольнику, петля будет наклонена в сторону. Если два треугольника объединены в одну полигруппу (представляющую собой четырехугольник), то петля будет проходить ровно.</p>
+<img src="icons/Снимок экрана 2026-04-26 230942.png" width="700">
+<p><b>Влияет ли создание PolyGroups на рендеринг?</b>
+
+Нет, PolyGroups — это всего лишь инструмент, который помогает выполнять классические методы моделирования, к которым вы, возможно, привыкли в других программах для моделирования. При рендеринге по-прежнему используются треугольники.</p>
+</body>
+</html>
+<script>
+  (function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+function copyCodeSnippet() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet2() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode2').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet3() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode3').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet4() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode4').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet5() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode5').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet6() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode6').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet7() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode7').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet8() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode8').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet9() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode9').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+
+
+
+
+
+
+</script>

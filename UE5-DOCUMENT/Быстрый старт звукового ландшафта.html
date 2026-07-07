@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Быстрый старт звукового ландшафта</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="uptab">
+		<img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+	</div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+	   <h1>Быстрый старт звукового ландшафта<h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Краткое руководство по началу работы с Soundscape.<h2>
+    </div>
+
+	<div class="cardHero">	
+        <img src="icons/hero.png.png" height="150">
+    </div>
+    <div class="container">
+    	    	<div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+<p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+<p><b>Soundscape</b> процедурно генерирует окружающие звуки, которые транслируются по мере перемещения игрока по миру. После настройки плагин автоматически управляет и композиционирует эти звуковые системы, устраняя необходимость их создавать вручную.
+
+В этом руководстве вы узнаете, как настроить собственный базовый звуковой ландшафт.</p>
+
+<h1 class="contenth">Предварительные условия</h1>
+<img src="icons/plugin (2).png" width="500">
+<ul>
+    <p><li>Плагин Soundscape по умолчанию отключен. Чтобы включить его, откройте панель плагинов, выбрав Редактировать > Плагины, используйте строку поиска, чтобы найти плагин, а затем нажмите соответствующую галочку.</li></p>
+    <p><li>Проект с персонажем-игроком, поддерживающим движение, например, шаблон от третьего лица.</li></p>
+    <p><li>В этом руководстве также требуется, чтобы в вашем проекте был актив звуковых волн. См. раздел «Импорт аудиофайлов» для получения информации о том, как создавать звуковые волны.</li></p>
+    <ul>
+        <p><li>(Опционально) Поскольку Soundscape композитует звуки в 3D-пространстве, использование настроек Attenuation Settings на вашей звуковой волне даёт лучшие пространственные результаты. Для получения дополнительной информации о пространственности см. разделы Пространственная и Звуковое затухание.</li></p>
+    </ul>
+</ul>
+
+<h1 class="contenth">1 - Создание таблицы данных состояний звукового ландшафта</h1>
+<p>Soundscape использует теги геймплея как состояния. Вы можете управлять этими состояниями с помощью Blueprint или C++, и Soundscape автоматически реагирует на поставленные вами условия.</p>
+<ol>
+    <p><li>Создайте ассет таблицы данных, нажав «Добавить содержимое» или правой кнопкой мыши по пустому месту в Content Browser и выбрав «Разное > таблицу данных». Появляется окно «Выбрать строку».</li></p>
+    <img src="icons/create_data_table.png" width="700">
+    <p><li>Выберите GameplayTagTableRow в выпадающем списке.</li></p>
+    <img src="icons/set_gameplay_tag_structure.png" width="500">
+    <p><li><b>Нажмите «Ок»</b>.</li></p>
+    <p><li>Введите «SoundscapeStates» как название таблицы данных.</li></p>
+    <p><li>Кликните правой кнопкой мыши по новому активу таблицы данных и выберите «Редактировать»... в контекстном меню. Появляется новое окно редактора таблицы данных.</li></p>
+    <img src="icons/add_gameplay_tag.png" width="700">
+    <p><li>Нажмите «Добавить», чтобы создать новый тег игрового процесса.</li></p>
+    <p><li>Измените тег в панели редактора строк на «Soundscape.Active».</li></p>
+    <p><li>Сохраните таблицу данных.</li></p>
+</ol>
+
+<h1 class="contenth">2 - Добавить таблицу данных в настройки проекта</h2>
+<p>Вы должны добавить теги игрового процесса в центральный словарь тегов в настройках проекта, чтобы движок знал о них. Для получения дополнительной информации о тегах игрового процесса см. раздел «Теги геймплея».</p>
+<ol>
+    <p><li>Перейдите в раздел «Редактировать > настройки проекта»... чтобы открыть панель «Настройки проекта».</li></p>
+    <p><li>Слева на панели нажмите GameplayTags под заголовком Project.</li></p>
+    <p><li>Нажмите Add Element для списка таблицы тегов геймплея.</li></p>
+    <p><li>Нажмите на выпадающее меню Index [0] и выберите ранее созданную таблицу данных SoundscapeStates. Звуковой ландшафт. Активное состояние теперь отображается в списке тегов геймплея.</li></p>
+    <img src="icons/add_table_to_settings.png" width="700">
+</ol>
+
+<h1 class="contenth">3 - Создать палитру звукового ландшафта и цвет</h1>
+<p>Система звукового ландшафта управляется двумя типами ассетов: палитрами и цветами. Цвет звукового ландшафта содержит ссылку на звуковой ассет и свойства поведения, которые управляют воспроизведением звука. Палитра звукового ландшафта содержит ссылки на цвета и условия воспроизведения, которые определяют, когда палитра активна.</p>
+<ol>
+    <p><li>Создайте ассет Soundscape Palette, нажав «Добавить контент» или кликнув правой кнопкой мыши по пустому месту в Content Browser и выбрав Audio > Soundscape > Soundscape Palette.</li></p>
+    <p><li>Введите любое желаемое имя для Палитры. В целом это имя должно отражать условие, активирующее Палитру.</li></p>
+    <p><li>Создайте ассет Soundscape Color, нажав «Добавить контент» или кликнув правой кнопкой мыши по пустому пространству в Content Browser и выбрав Audio > Soundscape > Soundscape Color.</li></p>
+    <p><li>Введите любое желаемое название цвета. В целом, это название должно отражать содержание звука, который будет воспроизводить цвет.</li></p>
+</ol>
+
+<h1 class="contenth">4 - Добавить палитру в настройки проекта</h1>
+<p>Вы должны добавить Soundscape Palettes в коллекцию Soundscape Palettes в настройках проекта, чтобы движок знал о них.</p>
+<ol>
+    <p><li>Перейдите в раздел «Редактировать > настройки проекта»... чтобы открыть панель «Настройки проекта».</li></p>
+    <p><li>Слева на панели нажмите Soundscape под заголовком Game.</li></p>
+    <p><li>Нажмите Add Element для коллекции палитры Soundscape.</li></p>
+    <p><li>Нажмите на выпадающее меню, чтобы выбрать ранее созданную палитру Soundscape.</li></p>
+    <img src="icons/add_palette_to_settings.png" width="700">
+</ol>
+
+<h1 class="contenth">5 - Настройте палитру</h1>
+<p>Ваша палитра находится в коллекции, но её всё равно нужно настроить.</p>
+<ol>
+    <p><li>Дважды кликните по палитре звукового пейзажа в Content Browser, чтобы открыть панель Details.</li></p>
+    <p><li>Нажмите «Редактировать»... рядом с условиями воспроизведения палитры звукового ландшафта. Появляется новое окно редактора тегов.</li></p>
+    <p><li>Нажмите на выпадающее меню Root Expression и выберите All Tags Match. Появляется новая запись Tags.</li></p>
+    <p><li>Нажмите на выпадающее меню Теги и выберите Soundscape.Active.</li></p>
+    <p><li>Нажмите «Сохранить и закрыть» в левом верхнем углу окна редактора тегов.</li></p>
+    <img src="icons/playback_conditions_setup.png" width="700">
+    <p><li>Нажмите <b>«Add Element»</b> для цветов.</li></p>
+    <p><li>Нажмите на стрелку слева от <b>Index [0]</b>, чтобы расширить этот раздел.</li></p>
+    <p><li>Нажмите на выпадающее меню Soundscape Color и выберите ранее созданную палитру Soundscape для Index [0].</li></p>
+    <p><li>Сохраните палитру звукового ландшафта.</li></p>
+    <img src="icons/palette_setup.png" width="700">
+</ol>
+
+<h1 class="contenth">6 - Настройте цвет</h1>
+<p>Теперь, когда ваш Цвет в палитре, добавьте к Цвету звук и некоторое поведение.</p>
+<ol>
+    <p><li>Дважды кликните по цвету Soundscape в Content Browser, чтобы открыть панель Details.</li></p>
+    <p><li>Выберите выпадающее меню Soundscape > Color > Sound и выберите ассет Sound Wave, который вы хотите воспроизводить.</li></p>
+    <img src="icons/color_setup1.png" width="700">
+    <p><li>Включите галочку для Modulation Behavior > Randomize Pitch. Это рандомизирует высоту звука каждый раз при воспроизведении.</li></p>
+    <p><li>Включите галочку «Поведение спавна» > Непрерывное возрождение. Это постоянно вызывает звук.</li></p>
+    <p><li>Вводите 50.0 для поведения спавна > максимальной дистанции появления. Это создаёт звук ближе к слушателю.</li></p>
+    <p><li>Сохраните цвет звукового ландшафта.</li></p>
+    <img src="icons/color_setup2.png" width="700">
+</ol>
+
+<h1 class="contenth">7 - Нажать громкость триггера</h1>
+<p>Звук внутри вашего цвета будет воспроизводиться, когда условие вашей палитры выполнено. Это условие будет выполнено при установке звукового ландшафта GameplayTag. Active. Используя Blueprint или C++, вы можете задать состояние как угодно, но для этого руководства используйте Level Blueprint и Trigger Volume для определения области уровня для воспроизведения звукового ландшафта.</p>
+<ol>
+    <p><li>Разместите Trigger Volume в вашем уровне, используя панель Place Actors или нажав Quick Add в панели инструментов редактора уровней и выбрав Volumes > Trigger Volume.</li></p>
+    <img src="icons/place_trigger_volume.png" width="500">
+    <p><li>Отрегулируйте положение, размер и форму громкости триггера внутри уровня, чтобы ваш персонаж мог перемещаться в него и выходить из него.</li></p>
+    <img src="icons/trigger_volume.png" width="700">
+</ol>
+
+<h1 class="contenth">8 - Подготовьте чертеж</h1>
+<ol>
+    <p><li>Выберите громкость триггера.</li></p>
+    <p><li>Нажмите кнопку Blueprint в панели инструментов редактора уровней и выберите Open Level Blueprint.</li></p>
+    <img src="icons/open_level_blueprint.png" width="700">
+    <p><li>Кликните правой кнопкой мыши по пустому пространству на графе и добавьте узел On Actor Begin Overlap для Trigger Volume.</li></p>
+    <p><li>Кликните правой кнопкой мыши по пустому пространству на графе и добавьте узел On Actor End Overlap для Trigger Volume.</li></p>
+    <p><li>Кликните правой кнопкой мыши по пустому месту на графе и добавьте узел Get SoundscapeSubsystem.</li></p>
+    <p><li>Перетащите контактное соединение из подсистемы Soundscape в пустое пространство на графе и добавьте связанный узел Set State.</li></p>
+    <p><li>Перетащите контактное соединение из подсистемы Soundscape в пустое пространство на графе и добавьте подключённый узел Clear State.</li></p>
+    <p><li>Подключите контакт исполнения узла On Actor Begin Overlap к узлу Set State.</li></p>
+    <p><li>Подключите контакт выполнения узла On Actor End Overlap к узлу Clear State.</li></p>
+    <p><li>Сохраните чертёж уровня.</li></p>
+    <img src="icons/blueprint_setup.png" width="700">
+</ol>
+
+<h1 class="contenth">9 - Слушайте результаты</h1>
+<ol>
+    <p><li>Нажмите кнопку Play Level в панели инструментов редактора уровней.</li></p>
+    <p><li>Переведите персонажа в Trigger Volume и остановитесь.</li></p>
+    <p><li>Слушайте свой новый Soundscape!</li></p>
+</ol>
+<p class="block-callout-inner">Следующие консольные команды могут быть полезны для продолжения развития вашего звукового ландшафта:
+<ul class="block-callout-inner">
+    <p><li>au.debug.sounds 1: Отображает список всех активных звуков на вашем уровне и связанную информацию в вашем окно.</li></p>
+    <p><li>au.3dVisualize.Enabled 1: Отображает расположение активных звуков в 3D-пространстве.</li></p>
+</ul>
+<p class="block-callout-inner">Для получения дополнительной информации о аудиоконсольных командах см. раздел «Аудио-консольные команды».
+</p>
+<img src="icons/result.png" width="700">
+
+<h1 class="contenth">10 — В одиночку!</h1>
+<p>Теперь, когда вы закончили создание базового звукового ландшафта, подумайте о том, чтобы доработать его ещё дальше.</p>
+<p>Ниже приведены некоторые советы, которые вы можете изучить самостоятельно:</p>
+<ul>
+    <p><li>Создайте больше SoundscapeState, чтобы поддерживать дополнительные условия на вашем уровне.</li></p>
+    <p><li>Используйте Blueprints или C++ для написания дополнительной логики для других окружающих ситуаций, например, времени суток.</li></p>
+    <p><li>Экспериментируйте с деталями ваших цветов и палитр, чтобы изменить их поведение.</li></p>
+    <p><li>Добавьте больше цветов в палитру, чтобы наложить дополнительные звуки.</li></p>
+    <p><li>Добавьте больше Палитр в Звуковой Ландшафт для самостоятельного использования или для слоёв с существующими Палитрами.</li></p>
+    <p><li>Вместо звуковой волны используйте источник MetaSound для вашего цвета. См. MetaSounds для получения дополнительной информации.</li></p>
+</ul>
+</div>
+</html>
+<script>
+(function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+</script>

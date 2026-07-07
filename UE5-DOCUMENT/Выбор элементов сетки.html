@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Выбор элементов сетки</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="uptab">
+		<img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+	</div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+	   <h1>Выбор элементов сетки</h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Обзор процесса выбора элементов сетки для редактирования граней, вершин и ребер сетки.</h2>
+    </div>
+
+	<div class="cardHero">	
+        <img src="icons/topic-image.png" height="150">
+    </div>
+    <div class="container">
+          <div class="container">
+            <div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+    <p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+<p>Режим моделирования позволяет напрямую выбирать элементы сетки (топологию) в Unreal Engine для более последовательного и оптимизированного процесса моделирования. Художники могут использовать панель инструментов Выбор элементов сетки, чтобы выбрать сетку или ее элемент, а затем применить операцию без использования промежуточных инструментов, таких как Редактирование полигрупп или Редактирование треугольников.</p>
+<video src="icons/2026-04-26 23-14-22.mp4"  width="700" controls></video>
+<p>Сетчатые элементы состоят из следующих частей:</p>
+<ul>
+    <p><li>Треугольник</li></p>
+    <p><li>Вершина треугольника</li></p>
+    <p><li>Сторона треугольника</li></p>
+    <p><li>Полигруппа</li></p>
+    <p><li>Сторона полигруппы</li></p>
+    <p><li>Вершина полигруппы</li></p>
+</ul>
+<p>Эти элементы представляют собой детализированную геометрию, из которой состоит ваша сетка. Такой процесс выбора и редактирования элементов поможет вам создать четкую топологию сетки.</p>
+<p class="block-callout-inner">PolyGroups — это набор сгруппированных треугольников, которые упрощают процесс моделирования. Например, с их помощью можно создавать группы четырехугольников для моделирования коробок. Подробнее о PolyGroups и их отличиях от треугольников читайте в разделе «Понимание PolyGroups».</p>
+<h1 class="contenth">Доступ к панели инструментов</h1>
+<p>Панель инструментов «Выбор элементов сетки» по умолчанию отключена в режиме моделирования. Дополнительную информацию о режиме моделирования и способах доступа к нему см. в разделе Обзор режима моделирования.</p>
+<p>Чтобы включить панель инструментов, выполните следующие действия:</p>
+<ol>
+    <p><li>В быстрых настройках режима моделирования нажмите на значок шестеренка</li></p>
+    <p><li>Нажмите Выбор элементов сетки.</li></p>
+    <p><li>Выйдите из режима моделирования и войдите в него снова.</li></p>
+</ol>
+<p>Панель инструментов должна появиться в области просмотра. Кроме того, при повторном переходе в режим моделирования становится доступной категория Выделение с инструментами для редактирования выделенных элементов.</p>
+<h1 class="contenth">Использование выделения элементов сетки</h1>
+<p>Вы можете преобразовывать выделенные элементы с помощью инструмента моделирования и использовать инструменты категории Выделение для дополнительных правок. При открытии доступного инструмента выделенные элементы переносятся в новое окно.
+
+При открытии инструмента выделенные элементы нельзя изменить. Чтобы обновить выделенные элементы, необходимо выйти из инструмента, изменить выделение, а затем снова войти в инструмент.
+
+Команды выделения, такие как Выделить все и Инвертировать выделение, помогают быстро выделить нужные элементы. Вы можете изменить способ выделения элементов, переключив Режим перетаскивания. В режиме перетаскивания можно выделять отдельные элементы или перетаскивать их, чтобы выделить несколько элементов. Подробнее об этих свойствах см. в разделе Свойства панели инструментов на этой странице.</p>
+<p class="block-callout-inner">Раздел «Элемент сетки» по умолчанию заблокирован для импортированных статических сеток. Эта настройка предотвращает случайное изменение геометрии сетки. Чтобы включить выбор элементов, нажмите на значок блокировки на панели инструментов.</p>
+<h2 class="contenth">Гибридное и числовое управление</h2>
+<p>Вы можете преобразовать выделенный элемент с помощью гибридного инструмента или использовать панель Преобразование для числового ввода. Чтобы изменить ориентацию гибридного инструмента с локального пространства на выделенный объект, воспользуйтесь разделом дополнительных настроек на панели инструментов (см. таблицу ниже).
+
+Подробнее о гибридном инструменте и панели «Преобразование» см. в разделе Гибридный инструмент обзора режима моделирования.</p>
+<h2 class="contenth">Свойства панели инструментов</h2>
+<img src="icons/Снимок экрана 2026-04-26 231915.png" width="700">
+<img src="icons/Снимок экрана 2026-04-26 231933.png" width="700">
+<p class="block-callout-inner">Элементы PolyGroup основаны на группировке треугольников. Чтобы получить нужный результат, попробуйте настроить PolyGroups. Подробнее см. в разделе «Понимание PolyGroups».</p>
+<h2 class="contenth">ГорЯчие клавиши</h2>
+<img src="icons/Снимок экрана 2026-04-26 232011.png" width="700">
+<h1 class="contenth">Выберите категорию «Инструменты»</h1>
+<p>Многие инструменты из категории Выбрать открывают панель с дополнительными операциями. Однако для операций Очистить и Удалить достаточно одного клика.</p>
+<ul>
+    <p><li>Удалить: удаляет выделенный фрагмент.</li></p>
+    <p><li>Очистить: повторно триангулирует выделенный фрагмент. Работает только с выделенными фрагментами PolyGroup.</li></p>
+</ul>
+<p>Дополнительную информацию об остальных инструментах вы можете найти в таблице ниже.</p>
+<p class="block-callout-inner">Некоторые инструменты доступны только для определенных элементов или находятся в другой категории.</p>
+<img src="icons/Снимок экрана 2026-04-26 232124.png" width="700">
+<img src="icons/Снимок экрана 2026-04-26 232141.png" width="700">
+
+
+
+
+</body>
+</html>
+<script>
+  (function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+function copyCodeSnippet() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet2() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode2').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet3() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode3').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet4() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode4').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet5() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode5').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet6() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode6').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet7() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode7').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet8() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode8').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet9() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode9').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+
+
+
+
+
+
+</script>

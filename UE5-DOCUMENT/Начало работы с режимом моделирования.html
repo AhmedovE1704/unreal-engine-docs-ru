@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Начало работы с режимом моделирования</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="uptab">
+		<img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+	</div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+	   <h1>Начало работы с режимом моделирования<h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Вводная информация о создании и редактировании 3D-мешей с использованием режима моделирования в Unreal Engine.<h2>
+    </div>
+
+	<div class="cardHero">	
+        <img src="icons/topic-image.png" height="150">
+    </div>
+    <div class="container">
+          <div class="container">
+            <div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+    <p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+<p>Режим моделирования содержит различные инструменты для создания простых и сложных 3D-мешей для всех ваших проектов визуализации. Эти инструменты предназначены для оптимизации процесса создания моделирования и совместимы с мешами, созданными с использованием традиционных рабочих процессов, а также с более сложными мешами, генерируемыми фотограмметрией. Режим моделирования также включает инструменты и рабочие процессы для создания UV, назначения материалов и выпечки текстур.</p>
+<p>Вот темы, которые помогут вам начать моделирование внутри Unreal Engine.</p>
+<!-- Карточка 1 -->
+    <a href="Обзор режима моделирования.html" class="card">
+        <div class="image-container">
+            <img src="icons/topic-image.png" alt="Изображение">
+        </div>
+        <div class="content">
+            <div class="title">Обзор режима моделирования</div>
+            <div class="description">Изучите основы режима редактора моделирования.</div>
+        </div>
+    </a>
+    <!-- Карточка 2 -->
+    <a href="Быстрый старт режима моделирования.html" class="card">
+        <div class="image-container">
+            <img src="icons/topic-image.png" alt="Изображение">
+        </div>
+        <div class="content">
+            <div class="title">Быстрый старт режима моделирования</div>
+            <div class="description">Начало работы с режимом моделирования и создание 3D-ассетов в Unreal Engine</div>
+        </div>
+    </a>
+    <!-- Карточка 3-->
+    <a href="Работа с Meshes.html" class="card">
+        <div class="image-container">
+            <img src="icons/topic-image (1).png" alt="Изображение">
+        </div>
+        <div class="content">
+            <div class="title">Работа с Meshes</div>
+            <div class="description">Руководство по тому, как Modeling Mode создаёт и обрабатывает меши.</div>
+        </div>
+    </a>
+    <!-- Карточка 4-->
+    <a href="Что такое полигруппы.html" class="card">
+        <div class="image-container">
+            <img src="icons/topic-image (3).png" alt="Изображение">
+        </div>
+        <div class="content">
+            <div class="title">Что такое полигруппы</div>
+            <div class="description">Узнайте, как использовать полигруппы и создавать их.</div>
+        </div>
+    </a>
+    <!-- Карточка 5-->
+    <a href="Выбор элементов сетки.html" class="card">
+        <div class="image-container">
+            <img src="icons/empty_thumbnail (1).svg" alt="Изображение">
+        </div>
+        <div class="content">
+            <div class="title">Выбор элементов сетки</div>
+            <div class="description">Обзор процесса выбора элементов сетки для редактирования граней, вершин и ребер сетки.</div>
+        </div>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+<script>
+  (function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+function copyCodeSnippet() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet2() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode2').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet3() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode3').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet4() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode4').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet5() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode5').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet6() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode6').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet7() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode7').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet8() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode8').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet9() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode9').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+
+
+
+
+
+
+</script>

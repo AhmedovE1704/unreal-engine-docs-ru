@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Работа с Meshes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="uptab">
+    <img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+  </div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+     <h1>Работа с Meshes<h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Руководство по тому, как Modeling Mode создаёт и обрабатывает меши.<h2>
+    </div>
+
+  <div class="cardHero">  
+        <img src="icons/topic-image (1).png" height="150">
+    </div>
+    <div class="container">
+                  <div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+    <p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+    <p>Режим моделирования — это режим редактора, в котором есть инструменты для создания и редактирования собственных 3D-сеток прямо в Unreal Engine. Хотя режим моделирования работает по тому же принципу, что и другие программы для моделирования, есть несколько ключевых отличий в том, как редактор создает новые сетки и обрабатывает редактирование. О них следует знать, прежде чем приступать к работе.</p>
+    <h2 class="contenth">Обязательные темы</h2>
+    <p>Чтобы лучше понять и использовать содержимое этой страницы, ознакомьтесь с режимом моделирования, прочитав документацию «Обзор режима моделирования».</p>
+    <h1 class="contenth">Тип вывода</h1>
+    <p>Вы можете создать новую сетку с помощью инструментов из категорий Фигуры или Создать на палитре «Инструменты моделирования»:</p>
+    <img src="icons/Снимок экрана 2026-05-01 161502.png" width="700">
+    <p>Unreal Engine использует тип вывода, указанный на панели моделирования, при создании новой сетки. Типы вывода, которые не поддерживаются выбранным инструментом, отображаются серым цветом.</p>
+    <img src="icons/Снимок экрана 2026-05-01 162146.png" width="700">
+    <h2 class="contenth">Статическая сетка</h2>
+    <p>Статическая сетка — это тип актера, представляющий собой трехмерную геометрию. При выборе типа «Статическая сетка» актер сохраняется в браузере контента как актив, а экземпляр актера помещается на уровень.</p>
+    <img src="icons/Снимок экрана 2026-05-01 162531.png" width="700">
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+<script>
+function copyCodeSnippet() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet2() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode2').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet3() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode3').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet4() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode4').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet5() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode5').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet6() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode6').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet7() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode7').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet8() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode8').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet9() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode9').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+(function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+
+
+
+
+
+</script>

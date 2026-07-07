@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Краткое руководство по настройке громкости звука в игре</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="uptab">
+		<img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+	</div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+	   <h1>Краткое руководство по настройке громкости звука в игре</h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Краткое руководство по настройке громкости звука в игре.</h2>
+    </div>
+
+	<div class="cardHero">	
+        <img src="icons/ue5-hero.png.png" height="150">
+    </div>
+    <div class="container">
+    	    	<div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+    	<img src="icons/topic (1).png" width="700">
+    	<p class="block-callout-inner">Узнайте, как использовать эту функцию бета-версию, но будьте осторожны при ее применении.</p>
+    	<p>С помощью регуляторов громкости в игровом процессе можно задать физические области, в которых к звукам будут применяться эффекты в зависимости от положения слушателя.</p>
+    	<p>Из этого руководства вы узнаете, как настроить базовую громкость звука в игровом процессе с помощью компонента Reverb, чтобы имитировать отражение звуковых волн в пространстве.</p>
+
+
+    	<h1 class="contenth">Предварительные условия</h1>
+    	<ul>
+    		<p><li>Совершенно новый проект, созданный с использованием шаблона от первого лица.</li></p>
+    		<img src="icons/project_template.png" width="700">
+			<p><li>Плагин Громкости звука в игровом процессе по умолчанию отключен. Чтобы включить его, откройте панель Плагинов, выбрав Правка > Плагины, используйте строку поиска, чтобы найти плагин, а затем установите соответствующий флажок.</li></p>
+			<img src="icons/plugin (1).png" width="400">
+    	</ul>
+
+
+
+    	<h2 class="contenth">1 — Настройте звуковой класс</h2>
+    	<p>Для работы аудио в игровом процессе требуются ресурсы Sound Wave в составе правильно настроенного звукового класса.</p>
+    	<p class="block-callout-inner">Дополнительную информацию о звуковых классах см. в разделе Звуковые классы.</p>
+    	<ol>
+    		<p><li>В шаблоне от первого лица есть единственная звуковая волна, которая воспроизводится, когда вы стреляете из оружия. Используя Content Browser, перейдите на страницу Content/FPWeapon/Audio.</li></p>
+    		<p><li>Дважды щелкните звуковую волну FirstPersonTemplateWeaponFire02, чтобы открыть панель Сведений о звуковой волне.</li></p>
+    		<img src="icons/sound_wave_in_browser.png" width="500">
+    		<p><li>Щелкните раскрывающийся список для Звук > Класс.</li></p>
+    		<img src="icons/sound_wave_details0.png" width="700">
+    		<p><li>Выберите Класс звука в контекстном меню, чтобы создать новый ресурс.</li></p>
+    		<img src="icons/create_new_sound_class.png" width="400">
+    		<p><li>Введите имя для нового класса звука и сохраните его в своей папке с содержимым.</li></p>
+    		<p><li>Дважды щелкните на вашем новом классе звука, чтобы открыть панель Сведений о классе звука.</li></p>
+    		<img src="icons/sound_wave_details1.png" width="700">
+    		<p><li>Включить Маршрутизацию > Применить громкость окружения, чтобы разрешить использование звуков, связанных с этим классом звука, с громкостью звука игрового процесса.</li></p>
+    		<p><li>Введите 1.0 для субмикширования > Объем отправки 2DReverb по умолчанию, чтобы отправить 100% звука из класса Sound в субмикс Master Reverb.</li></p>
+    		<img src="icons/sound_class_details.png" width="700">
+    		<p><li>Сохраните класс звука и ресурсы звуковой волны.</li></p>
+    	</ol>
+
+    	<h2 class="contenth">2. Установите громкость звука в игре</h2>
+    	<ol>
+    		<p><li>Разместите объем аудиоигры в своем уровне, используя панель "Разместить актеров" или нажав "Быстрое добавление" на панели инструментов редактора уровней и выбрав "Громкости" > "Объем аудиоигры". ...................."</li></p>
+    		<img src="icons/place_actor.png" width="500">
+    		<p><li>Расположите объект на уровне так, чтобы ваш персонаж мог входить в него и выходить из него, например, прямо над <span class="mono">BP_Pickup_Rifle</span>.</li></p>
+    		<img src="icons/volume_in_level.png" width="500">
+    	</ol>
+
+    	<h2 class="contenth">3 — Добавьте компонент реверберации</h2>
+    	<p>Функциональность громкости звука в игровом процессе зависит от компонентов. В каждом звуковом объеме может быть любое количество таких компонентов, которые влияют на звуки, происходящие внутри или за пределами объема, относительно слушателя. В этом примере добавьте в свой объем компонент реверберации, чтобы звук выстрелов из оружия отражался от стен, пока игрок находится внутри.</p>
+    	<ol>
+    		<p><li>Выбрав <b>громкость звука в игровом процессе</b>, нажмите кнопку <b>Добавить компонент</b> на панели <b>Сведений</b>.</li></p>
+    		<img src="icons/volume_details.png" width="700">
+    		<p><li>Выберите компонент <b>Реверберации в разделе Громкости звука в игровом процессе контекстного меню</b>.</li></p>
+    		<img src="icons/add_reverb_component.png" width="500">
+    		<p><li>Введите 1.0 для <b>Реверберации > Громкости</b>, чтобы увеличить громкость эффекта.</li></p>
+    		<p><li>Введите 0.0 для <b>Реверберации > Время затухания</b>, чтобы применить эффект сразу при наборе громкости.</li></p>
+    		<img src="icons/reverb_component_details0.png" width="700">
+    	</ol>
+
+    	<h2 class="contenth">4. Настройте эффект реверберации</h2>
+    	<p>Компонент реверберации применяет свой эффект с помощью ресурса Эффект реверберации, поэтому вам нужно его создать.</p>
+    	<ol>
+    		<p><li>Выбрав новый компонент <b>Reverb</b>, щелкните раскрывающийся список для <b>Reverb > Эффект реверберации</b>.</li></p>
+    		<img src="icons/reverb_component_details1.png" width="700">
+    		<p><li>Выберите <b>Эффект реверберации</b> в контекстном меню, чтобы создать новый ресурс.</li></p>
+    		<img src="icons/create_new_reverb_effect.png" width="500">
+    		<p><li>Введите имя для нового эффекта реверберации и сохраните его в своей папке с <b>содержимым</b>.</li></p>
+    		<p><li>Дважды щелкните на вашем новом <b>эффекте реверберации</b>, чтобы открыть панель <b>Сведений об эффекте реверберации</b>.</li></p>
+    		<img src="icons/reverb_component_details2.png" width="600">
+    		<p><li>Введите 1.0 для <b>поздних отражений > Усиления</b>, чтобы усилить сигнал и сделать эффект более отчетливым.</li></p>
+    		<img src="icons/reverb_details.png" width="700">
+    		<p><li>Сохраните ресурс с эффектом реверберации.</li></p>
+    	</ol>
+
+    	<h2 class="contenth">5 - Играть</h2>
+    	<ol>
+    		<p><li>Нажмите кнопку<b> Воспроизвести уровень на панели инструментов редактора уровней</b>.</li></p>
+    		<p><li>Переместите своего персонажа в <span class="mono">BP_Pickup_Rifle</span> и возьмите оружие.</li></p>
+    		<p><li>Щелкните левой кнопкой мыши, чтобы выстрелить, находясь внутри или за пределами области, и послушайте, как меняется звук.</li></p>
+    	</ol>
+    	<video src="icons/2026-04-25 03-21-02.mp4" width="700" controls></video>
+
+    	<h2 class="contenth">6 — самостоятельно!</h2>
+    	<p>Теперь, когда вы создали базовую громкость для игрового процесса, подумайте о том, чтобы усовершенствовать ее.</p>
+    	<p>Попробуйте добавить в новую или существующую громкость следующие типы компонентов:</p>
+    	<ul>
+    		<p><li><b>Submix Override</b>: добавляет цепочку эффектов Submix к звуковому субмиксу. Когда слушатель входит в зону громкости, этот эффект применяется ко всем звукам, независимо от того, находятся ли они внутри или за пределами зоны громкости.</li></p>
+    		<p><li><b>Submix Send</b>: отправляет звук в звуковой субмикс. Этот эффект применяется к звукам внутри зоны громкости и может быть настроен на применение как внутри, так и за пределами зоны громкости.</li></p>
+    		<p><li><b>Аттенюация</b>: интерполирует текущую громкость (громкость) звука до целевого значения (громкости). Вы можете настроить эффект так, чтобы он применялся к звукам внутри помещения, когда слушатель находится снаружи, или наоборот.</li></p>
+    		<p><li><b>Фильтр</b>: применяет к звуку фильтр нижних частот. Вы можете настроить эффект так, чтобы он применялся к звукам внутри помещения, когда слушатель находится снаружи, или наоборот.</li></p>
+    	</ul>
+    	<p class="block-callout-inner">Чтобы услышать эффекты некоторых типов компонентов, таких как Attenuation и Filter, вам понадобится хотя бы один звук, расположенный на некотором расстоянии от игрока. В шаблоне от первого лица по умолчанию нет звуков, настроенных таким образом, поэтому потребуется дополнительная работа.
+
+Есть много способов это сделать, но для начала попробуйте импортировать файл с фоновым звуком в качестве ресурса Sound Wave, а затем разместить его внутри или снаружи области на уровне. Подробнее о том, как импортировать аудиофайлы, см. в разделе <a href="Импорт аудиофайлов.html">Импорт аудиофайлов</a>.</p>
+
+    	
+
+
+
+
+
+
+
+</div>
+</body>
+<script>
+(function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+</script>
+</html>

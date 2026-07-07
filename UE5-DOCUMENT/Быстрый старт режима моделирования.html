@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Быстрый старт режима моделирования</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="uptab">
+		<img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+	</div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+	   <h1>Быстрый старт режима моделирования<h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Начало работы с режимом моделирования и создание 3D-ассетов в Unreal Engine<h2>
+    </div>
+
+	<div class="cardHero">	
+        <img src="icons/topic-image.png" height="150">
+    </div>
+    <div class="container">
+                  <div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+    <p c
+    <p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+    <p>Набор инструментов Modeling Mode в Unreal Engine используется для создания сеток, быстрого прототипирования новой геометрии уровней и редактирования существующих сеток без выхода из редактора.</p>
+<img src="icons/modeling-mode-crate-result.png.png" width="700">
+<p>Это быстрое руководство проводит вас по созданию деревянного ящика с использованием нескольких инструментов в режиме моделирования. Вы начинаете с создания новой примитивной формы и добавления деталей с помощью нескольких инструментов PolyEdit. Далее вы готовите модель к текстурированию с помощью UV-инструментов. В конце добавляете материал и добавляете его в уровень с полной симуляцией столкновений и физики.</p>
+<h1 class="contenth">Предварительные темы</h1>
+<p>Перед началом этого быстрого руководства рекомендуем ознакомиться с режимом моделирования и тем, как Unreal Engine работает с 3D-моделями.
+
+Хотя многие инструменты в режиме моделирования похожи на свои аналоги в других программах для моделирования, есть несколько ключевых отличий в структуре редактирования сеток в редакторе режима моделирования, о которых стоит знать до начала работы.
+
+Для получения дополнительной информации см. обзор режима моделирования.</p>
+<h1 class="contenth">1 - Создание примитива коробки</h1>
+<p>Перед началом создайте новый проект на основе шаблона игры от первого лица. Для получения дополнительной информации о создании новых проектов в Unreal Engine см. раздел «Создание нового проекта».</p>
+<ol>
+  <p><li>Откройте режим моделирования, нажав на выпадающее меню Выберите режим и выберите Моделирование. Это откроет панель инструментов режима и панель моделирования.</li></p>
+  <img src="icons/modeling-mode-box-tool.png.png" width="700">
+  <p><li>В категории «Фигуры» вверху панели инструментов «Режим» нажмите «Поле» и настройте параметры в панели «Моделирование» под желаемый размер. Для этого руководства настройки по умолчанию подходят. Это создаёт поле диаметром 100 сантиметров, примерно вдвое меньше стандартного персонажа.</li></p>
+  <img src="icons/modeling-mode-create-box.png.png" width="700">
+  <p><li>Нажмите в Viewport, чтобы создать своё поле, затем нажмите Complete внизу экрана или нажмите Enter.</li></p>
+</ol>
+<h1 class="contenth">2 - Создание внешней рамки</h1>
+<p>Превращение вашей примитивной формы в детальную 3D-модель начинается с определения её PolyGroups.</p>
+<img src="icons/modeling-mode-polygroups.png.png" width="700">
+<p>Полезно свернуть разделы, которые вы не используете, в панели инструментов режима.
+<img src="icons/modeling-mode-collapse-tools.png.png" width="700">
+</p>
+<ol>
+  <p><li>Выберите поле в окне просмотра. В панели инструментов Mode найдите раздел Атрибуты и нажмите GrpGen. Это сгенерирует PolyGroups для этого блока.</li></p>
+  <img src="icons/modeling-mode-grpgen.png.png" width="700">
+  <p><li>Режим и настройки по умолчанию для этого быстрого запуска подходят, поэтому нажмите кнопку Accept внизу экрана просмотра или нажмите Enter.</li></p>
+  <img src="icons/modeling-mode-box-polygroups.png.png" width="700">
+  <p><li>В панели инструментов Mode найдите раздел инструментов PolyModel и нажмите PolyEd. Это откроет инструменты PolyEdit в панели моделирования.</li></p>
+  <img src="icons/modeling-mode-polyed-tools.png.png" width="700">
+  <p><li>Выберите одну из граней в Viewport и нажмите Inset. Двигайте мышь в окно просмотра, пока лицо не будет вставлено на такую величину, как показано на изображении ниже.</li></p>
+  <img src="icons/modeling-mode-inset.png.png" width="700">
+  <p>Кликните мышью ещё раз, чтобы вставить лицо.</p>
+  <p><li>Выберите внутреннюю грань, которую вы создали, и нажмите Extrude. Вытяните лицо внутрь, чтобы создать внешнюю рамку ящика.</li></p>
+  <img src="icons/modeling-mode-extrude.png.png" width="700">
+  <p class="block-callout-inner">Если в вьюпорте включено прикрепление сетки, расстояние, на которое выходит лицо, равно значению Position Grid Snap, установленному в вашем Viewport. Настройка этой настройки даст вам больше контроля во время редактирования.</p>
+  <p><li>Повторите этот процесс с каждой стороны ящика. Не забудьте о нижней стороне.</li></p>
+</ol>
+<h1 class="contenth">3 - Добавление дополнительных деталей</h1>
+<p>Далее вы добавите поперечную распорку к внешней раме ящика.</p>
+<ol>
+  <p><li>В инструментах PolyEd выберите внутреннюю грань, которую вы только что экструзировали, и нажмите кнопку Decompose. Это разделит грань на составные треугольники и создаст ребро от угла к углу.</li></p>
+  <img src="icons/modeling-mode-decompose.png.png" width="700">
+  <p><li>Выберите новое ребро, которое вы создали. Затем удержите Shift и выберите дополнительные рёбра в углах, соединённых с новым ребром, как показано на изображении ниже.</li></p>
+  <img src="icons/modeling-mode-edge-select.png.png" width="700">
+  <p>Выбрав рёбра, перейдите в раздел редактирования краёв и нажмите «Скосок». Оставьте настройки по умолчанию и нажмите кнопку «Применить» в верхней части меню. Это разделяет край и создаёт новую грань.</p>
+  <p class="block-callout-inner">Вы можете отключить Select Vertices и Select Faces в разделе Selection Filter панели Tools Details, чтобы упростить выбор отдельных рёбер.</p>
+  <p><li>Выберите новую грань и экструдируйте её до уровня внешней рамы.</li></p>
+  <img src="icons/modeling-mode-extrude-bevel.png.png" width="700">
+  <p><li>Это создаёт две внутренние грани: одну на конце экструзионированной поперечной распорки и одну во внутреннем углу. Переместите вид камеры внутри ящика и выберите внутренние грани, как показано ниже.</li></p>
+  <img src="icons/modeling-mode-weld-step-1.png.png" width="700">
+  <img src="icons/modeling-mode-weld-step-2.png.png" width="700">
+  <p>Нажмите Delete или нажмите клавишу Delete, чтобы удалить эти лица.</p>
+  <p><li>Инструмент Weld соединяет два ребра в месте выбранного последнего. Выберите два показанных ниже рёбра.</li></p>
+  <img src="icons/modeling-mode-weld-step-3.png.png" width="700">
+  <p>Нажмите «Сварка».</p>
+  <p><li>Повторите этот процесс для другого конца внутренней рамы.</li></p>
+  <p><li>Повторите процесс с каждой стороны ящика.</li></p>
+</ol>
+<h1 class="contenth">4 - Разворовка УФ-файлов</h1>
+<p>Чтобы правильно показать текстуру дерева, ящик нужно развернуть в ультрафиолете.</p>
+<ol>
+  <p><li>Поскольку вы внесли значительные изменения в исходную форму коробки, нажмите GrpGen и сгенерируйте новые PolyGroups для ящика. Измените размер минимальной группы на шесть новых PolyGroups (по одной с каждой стороны), аналогично изображению ниже.3</li></p>
+  <img src="icons/modeling-mode-new-polygroups.png.png" width="700">
+  <p>Нажмите Accept или Enter, чтобы продолжить.</p>
+  <p><li>Далее перейдите в раздел UV в меню и выберите инструмент Unwrap. В верхней части панели Modeling откройте выпадающее меню Island Generation и выберите PolyGroups.</li></p>
+  <img src="icons/modeling-mode-uv-map-gen.png.png" width="700">
+  <p><li>Измените значение разрешения текстур на 2048. Это изменяет смещение между UV-островами, чтобы между ними было достаточно пикселей.</li></p>
+  <img src="icons/modeling-mode-uv-map-gen2.png.png" width="700">
+  <p><li>Чтобы увидеть сгенерированную карту UV, нажмите галочку опции «Включено» в разделе предварительного просмотра UV-раскладки меню. Ваша UV-карта будет выглядеть похоже на изображение ниже. Нажмите Accept или Enter, чтобы завершить UV-карту.</li></p>
+  <img src="icons/modeling-mode-uv-map.png.png" width="700">
+  <p><li>Наконец, проверьте качество сгенерированной УФ-карты, добавив в ящик деревянный материал. В панели «Детали» откройте раздел «Материалы» и перейдите в выпадающее меню элемента 0. Найдите M_Wood_Pine материал и примените его к ящику.</li></p>
+  <img src="icons/modeling-mode-uv-add-material.png.png" width="700">
+</ol>
+<h1 class="contenth">5 - Принести ящик на уровень</h1>
+<p>Подготовьте ящик к вашему уровню, добавив Simplified Box Collision в редакторе статической сетки и включив Physics Simulation.</p>
+<ol>
+  <p><li>Найдите ваш crate asset в Content Browser и откройте его в редакторе статической сетки. Это можно сделать, зайдя в папку и дважды кликнув по ящику.FirstPerson/Maps/_GENERATED/User</li></p>
+  <img src="icons/modeling-mode-static-mesh-editor.png.png" width="700">
+  <p class="block-callout-inner">Вы заметите, что версия вашего ящика в редакторе статической сетки не имеет M_Wood_Pine материала. Добавление материала в статическую сетку через панель деталей применяет его только к этому экземпляру статической сетки. Применение материала из сосны в редакторе статической сетки применит его ко всем будущим экземплярам ящика.</p>
+  <p><li>Нажмите на меню Collision и выберите Add Box Simplified Collision, чтобы добавить базовое поле столкновения в ящик.</li></p>
+  <img src="icons/modeling-mode-add-collision.png.png" width="700">
+  <p><li>Найдите раздел «Сложность столкновений» в панели «Детали». Откройте выпадающее меню и выберите «Проект по умолчанию».</li></p>
+  <img src="icons/modeling-mode-project-default-collision.png.png" width="700">
+  <p><li>В окне редактора включите Simulate Physics в панели Details.</li></p>
+  <img src="icons/modeling-mode-enable-physics.png.png" width="600">
+</ol>
+<h1 class="contenth">Результат</h1>
+<p>В ходе этого быстрого запуска вы создали Ассет деревянного ящика с помощью набора инструментов Modeling Mode, полностью внутри редактора Unreal. Вы добавили детализацию в модель, UV-карту и древесный материал.
+
+Наконец, вы добавили соответствующие настройки столкновений и включили физику, чтобы ваш ящик стал готовым к игре активом.</p>
+<img src="icons/modeling-mode-crate-result.png (1).png" width="700">
+</body>
+</html>
+<script>
+(function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+function copyCodeSnippet() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet2() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode2').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet3() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode3').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet4() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode4').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet5() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode5').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet6() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode6').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet7() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode7').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet8() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode8').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet9() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode9').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+
+
+
+
+
+
+</script>

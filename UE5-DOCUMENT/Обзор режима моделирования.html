@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Обзор режима моделирования</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="uptab">
+		<img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+	</div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+	   <h1>Обзор режима моделирования<h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Изучите основы режима редактора моделирования.<h2>
+    </div>
+
+	<div class="cardHero">	
+        <img src="icons/topic-image.png" height="150">
+    </div>
+    <div class="container">
+                  <div class="progress-bar" id="progressBar"></div>
+
+<div class="toc" id="toc-container">
+    <div class="toc-title">На этой странице</div>
+    <div id="toc-list"></div>
+</div>
+    <p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+<p>Режим редактора моделирования, также известный как режим моделирования, предоставляет набор инструментов для создания, скульптуры и редактирования 3D-геометрии непосредственно в Unreal Engine (UE). Эти инструменты предлагают рабочие процессы для редактирования топологии, создания UV, назначения нескольких материалов, редактирования столкновений и запечки текстур.</p>
+<p>В этом обзоре описано:</p>
+<ul>
+  <p><li>Как получить доступ к режиму и его инструментам</li></p>
+  <p><li>Основные концепции, лежащие в основе инструментов и их рабочих процессов</li></p>
+  <p><li>Основы работы с инструментами</li></p>
+</ul>
+<p>
+Перед использованием режима моделирования рекомендуем разобраться в следующих темах:
+<ul>
+  <p><li>Актив</li></p>
+  <p><li>Актёр</li></p>
+  <p><li>Компонент</li></p>
+  <p><li>Редактор уровней</li></p>
+</ul>
+</p>
+
+<h1 class="contenth">Доступ к режиму моделирования</h1>
+<p>Чтобы получить доступ к режиму моделирования, нажмите выпадающее меню «Выбрать режим», а затем нажмите «Моделирование». Или нажмите SHIFT+5, чтобы сразу переключиться в этот режим. Чтобы узнать больше о различных режимах, смотрите раздел «Режим редактора уровней».</p>
+<img src="icons/modeling-mode-dropdown.png" width="700">
+<p class="block-callout-inner">Если в выпадающем меню режима не отображается Modeling, убедитесь, что редактор включён в ваших плагинах.
+
+Редактировать > Плагины > режиме редактора инструментов моделирования
+
+Чтобы узнать больше, см. раздел «Работа с плагинами».
+<img src="icons/ue-5-2-modeling-plugin.png" width="700"></p>
+<p>При нажатии на режим появляется пользовательский интерфейс (UI) Modeling Mode с несколькими панелями, чтобы упростить ваш рабочий процесс.</p>
+<img src="icons/ue5-3-modeling-mode-panels.png" width="700">
+<img src="icons/Снимок экрана 2026-04-26 015622.png" width="700">
+
+<h2 class="contenth">Горячая линия</h2>
+<p>Дополнительная панель с подсказками, такими как команды горячей клавиши, доступна в нижней панели редактора уровней при использовании режима моделирования.</p>
+<img src="icons/ue-5-2-tip-bar.png" width="700">
+
+<h1 class="contenth">Понимание ключевых понятий</h1>
+<p>Хотя многие инструменты в режиме моделирования похожи на свои аналоги в других программах для моделирования, существует несколько существенных отличий в структуре редактирования сеток, которые стоит знать до начала работы.</p>
+<h2 class="contenth">Терминология</h2>
+<p>Инструменты моделирования применимы при работе с различными типами актёров Unreal Engine (UE), такими как статические меши, динамические меши или объёмы. Они вместе называются «мешами» или «мешами», за исключением случаев, когда инструмент подходит только для конкретного типа актора.</p>
+<h2 class="contenth">Треугольники и полигруппы</h2>
+<p>Unreal Engine отображает все модели как триангуляционные сетки. Другими словами, при импорте или создании сетки её поверхность автоматически разбивается на треугольники (триугольники), независимо от того, были ли они уже определены в другой среде. Это преобразование в треугольники даёт несколько гарантий:</p>
+<ul>
+  <p><li>UE не может импортировать или создавать модель, которую не может отрендерить.</li></p>
+  <p><li>Рендеринг UE портативен на всех платформах, так как все графические драйверы универсально распознают треугольники.</li></p>
+  <p><li>UE не нужно тратить время и ресурсы на разрешение четырёхугольных (четырёхгольных) многоугольников и n-угольников (многоугольников с более чем 4 сторонами) в треугольники во время выполнения.</li></p>
+</ul>
+<p>В режиме моделирования вы можете редактировать треугольники вашей сетки с помощью инструмента редактирования треугольника. Этот инструмент — один из самых низкоуровневых инструментов редактирования топологии, полностью основанный на прямом выборе и редактировании трилогий и вершин. Хотя Unreal Engine не распознаёт нативно квады или n-угольники, он поддерживает PolyGroups, которые могут имитировать эти особенности. PolyGroups — это произвольные наборы треугольников, которые могут определять различные инструменты в режиме моделирования. Затем вы можете управлять этими группировками для традиционного моделирования коробок с помощью инструмента PolyGroup Edit, создавать UV с помощью UV-инструментов и многое другое.
+
+При создании сетки с использованием одной из примитивных фигур в категории Create вы можете настроить PolyGroups новой сетки с помощью режима PolyGroup.</p>
+<img src="icons/ue5-3-create-polygroups.png" width="700">
+<p>Кроме того, вы можете назначать PolyGroups с помощью следующих инструментов:</p>
+<ul>
+  <p><li>Tri Select (выбор треугольника)</li></p>
+  <p><li>Генерировать полигруппы</li></p>
+  <p><li>Paint PolyGroups</li></p>
+</ul>
+<img src="icons/ue5-3-paint-polygroup-tool.png" width="700">
+<p>Чтобы узнать больше о создании и использовании PolyGroups, см. раздел Understanding PolyGroups.</p>
+<h2 class="contenth">Инструменты, история отмены и принятие изменений</h2>
+<p>Большинство инструментов в режиме моделирования не применяют изменения к сеткам сразу. Вместо этого инструмент показывает предварительный просмотр сетки с учётом ваших изменений, а панель подтверждения инструмента отображает кнопки «Отмена» и «Принять».</p>
+<img src="icons/Снимок экрана 2026-04-26 020437.png" width="700">
+<p>Если вы выходите из режима моделирования или нажимаете Cancel, ваши изменения отбрасываются, и сетка возвращается к прежнему состоянию до начала редактирования. Когда вы нажимаете Accept, вы выходите из инструмента, и все изменения, внесённые в меш во время использования инструмента, применяются к базовой сетке. Изменения также применяются, когда вы переключаетесь с активной сессии инструмента на другую.
+
+Во время использования инструмента вы можете отменить или заново делать отдельные изменения. Однако, приняв изменения, система истории отмены в UE отслеживает состояние сети только до и после активации инструмента. Например, вы можете отменить каждый мазок кисти внутри инструмента Vertex Sculpt. После нажатия «Принять» и выходя из инструмента слепления, можно отменить только совокупный результат всех мазков кисти. Undo возвращает вашу сетку в состояние до запуска инструмента.</p>
+<h2 class="contenth">Сети, ассеты и настройки проекта</h2>
+<p>Тип актёра, который вы выбираете для представления вашей сетки, определяет, как режим моделирования обрабатывает процесс создания и редактирования. При создании новой сетки в категории Create вы используете Output Type для выбора желаемого актёра. Вы можете выбрать один из следующих актёров в качестве целевого меша:</p>
+<ul>
+  <p><li>Статическая сетка: Представляет вашу модель и сохраняется в Content Browser. Экземпляр сетки помещается в уровень.</li></p>
+  <p><li>Динамическая сетка: Представляет вашу модель и сохраняется только на уровне.</li></p>
+  <p><li>Volume: Представляет область, которая запускает поведение и сохраняется только в уровне.</li></p>
+</ul>
+<p>У этих типов есть различные сценарии использования и преимущества. Вы можете изменить тип актора текущей сетки с помощью таких инструментов, как Convert и Transfer. Используйте настройки проекта для настройки создания и выбора мешей, а также сохранения ассетов.
+
+Чтобы продолжать изучать, как обрабатываются типы вывода и как настраивать настройки вашего рабочего процесса, ознакомьтесь с документацией Working with Meshes.</p>
+<h1 class="contenth">Использование режима моделирования</h1>
+<h2 class="contenth">Создание сетки</h2>
+<p>Чтобы создать новую сетку, следуйте следующим шагам:</p>
+<ol>
+  <p><li>Откройте категорию «Создать».</li></p>
+  <p><li>Кликните по любой заранее заданной примитивной фигуре и переместите курсор мыши в Viewport. Шаблон фигуры следует за курсором и прикрепляет к сетке уровней.</li></p>
+  <p><li>Кликните, где хотите добавить сетку в свой уровень.</li></p>
+</ol>
+<p>Редактор создаёт фигуру, используя параметры, настроенные в панели Свойства инструмента.</p>
+<video src="icons/2026-04-26 02-09-16.mp4" width="700" controls></video>
+<p>Вы также можете создавать пользовательские меши с помощью инструментов из категории Создать. Например, вы можете использовать инструмент Extrude Polygon, чтобы нарисовать контур меша, а затем экструдировать её, чтобы создать 3D-фигуру.</p>
+<video src="icons/2026-04-26 02-11-20.mp4" width="700" controls></video>
+<p class="block-callout-inner">Несколько инструментов, таких как Extrude Polygon и Extrude Path, используют сетку для рисования фигур. Чтобы контролировать положение сетки, нажмите Ctrl + Click по нужному месту.</p>
+<h2 class="contenth">Редактирование сетки</h2>
+<p>Большинство других инструментов в режиме моделирования построены на редактировании существующей сетки в вашем игровом мире. Например, если выбрать Triangle Edit или PolyGroup Edit и затем кликнуть на меш, можно выполнить топологические операции моделирования.
+
+Отдельные операции в инструментах Triangle Edit и PolyGroup Edit, такие как Extrude, Push Pull или Cut Faces, отображаются в панели Свойства инструмента. После внесения правок нажмите кнопку Accept, чтобы завершить изменения, или Cancel, чтобы их удалить.
+</p>
+<video src="icons/2026-04-26 02-16-19.mp4" width="700" controls></video>
+<p>Вы можете выбрать любую сетку в вашем мире и редактировать её с помощью этих инструментов, включая те, которые не были созданы в режиме моделирования. Например, вы можете использовать инструмент Lattice на высокоразрешенной сетке, чтобы быстро изменить её форму.</p>
+<p class="block-callout-inner">Если вы планируете редактировать модель высокого разрешения, мы настоятельно рекомендуем дублировать актив с помощью инструмента Duplicate, чтобы сохранить исходную сетку.</p>
+<h2 class="contenth">Гизмо</h2>
+<p>В режиме моделирования есть специальный инструмент для уникальных и быстрых преобразований мешов. По умолчанию масштабирование, вращение и перевод (move) объединены в один инструмент.</p>
+<img src="icons/ue-5-2-gizmo.png" width="700">
+<p>Чтобы использовать индивидуальный инструмент для моделирования, соответствующий стандартному переводу, вращению и масштабированию редактора уровней, следуйте следующим шагам:</p>
+<ol>
+  <p><li>Нажмите на значок настроек в режиме моделирования. Быстрые настройки.</li></p>
+  <p><li>Отключите комбинированный гизмо.</li></p>
+  <img src="icons/ue-5-2-gizmo-settings.png" width="700">
+</ol>
+<p>Помимо структуры моделирующего устройства, вы можете видеть:</p>
+<ul>
+  <p><li>Переключайтесь между относительной и абсолютной сеткой, переключая World Grid Snapping.</li></p>
+  <p><li>Используйте панель преобразования для числового ввода мирового пространства и локальных дельта-значений.</li></p>
+</ul>
+<p>Панель трансформации отображается непосредственно в Viewport и доступна для нескольких инструментов моделирования и UV.</p>
+<img src="icons/ue-5-2-transform-panel.png" width="700">
+<h2 class="contenth">Горячие клавиши Gizmo</h2>
+<p>Вы можете использовать горячие клавиши Gizmo, указанные в таблице, для определённых инструментов. Конкретные инструменты моделирования имеют дополнительные атрибуты gizmo, такие как переставляемая сетка для Extrude Polygon, Extrude Path и инструмент Patten. Используйте Горячую линию для указания, когда можно использовать эти горячие клавиши.</p>
+<img src="icons/Снимок экрана 2026-04-26 022046.png" width="700">
+<h2 class="contenth">Выбор элементов сетки</h2>
+<p>Режим моделирования предоставляет возможность прямого выбора элементов сетки для более последовательного и оптимизированного рабочего процесса. Выбор элементов меша позволяет художникам выбрать меш, выбрать элемент и затем вызвать операцию без использования промежуточных инструментов, таких как PolyGroup Edit или Triangle Edit.</p>
+<p>Чтобы включить инструмент, следуйте следующим шагам:</p>
+<ol>
+  <p><li>Нажмите на значок настроек в режиме моделирования. Быстрые настройки.</li></p>
+  <p><li>Выберите выбор элемента Mesh.</li></p>
+  <p><li>Выход и повторный вход в режим моделирования.</li></p>
+</ol>
+<p>Кроме того, когда настройка включена, становится доступна категория Select с инструментами для редактирования выбора мешей.</p>
+<video src="icons/2026-04-26 02-22-48.mp4" width="700" controls></video>
+<h2 class="contenth">Пользовательские пресеты инструментов</h2>
+<p>Используя различные инструменты в режиме моделирования, вы можете создавать рабочие процессы с повторяющимися настройками для конкретных инструментов. Вместо многократного ввода этих настроек вы можете использовать опцию пресетов при выборе инструмента. С помощью пользовательских пресетов вы можете сохранять текущие настройки инструмента, перезагружать их в будущем и управлять, какие коллекции пресетов активны и включены для проекта или пользователя.</p>
+<img src="icons/create-preset.png" width="700">
+<img src="icons/preset-manager.png" width="700">
+<h1 class="contenth">Категории инструментов</h1>
+<img src="icons/Снимок экрана 2026-04-26 022450.png" width="700">
+<img src="icons/Снимок экрана 2026-04-26 022512.png" width="700">
+<p>Чтобы узнать больше об этих категориях и их конкретных инструментах, смотрите раздел «Инструменты моделирования».</p>
+</body>
+</html>
+<script>
+(function() {
+    let isScrolling = false;
+    let scrollTimeout;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        if (!tocList) return;
+        
+        const headings = document.querySelectorAll('h1, h2');
+        
+        if (headings.length === 0) {
+            tocList.innerHTML = '<div style="color: #888; padding: 8px;">Нет заголовков</div>';
+            return;
+        }
+        
+        tocList.innerHTML = '';
+        
+        // Создаём оглавление
+        headings.forEach(heading => {
+            if (!heading.id) {
+                let id = heading.textContent
+                    .toLowerCase()
+                    .replace(/[^\wа-яё\s]/gi, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-');
+                if (!id || id.length < 2) {
+                    id = 'section-' + Math.random().toString(36).substr(2, 8);
+                }
+                heading.id = id;
+            }
+            
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            
+            if (heading.tagName === 'H2') {
+                link.classList.add('h2-link');
+            }
+            
+            // КЛИК ПО ОГЛАВЛЕНИЮ — сразу ставим активный класс и НЕ даём скроллу его сбросить
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Сразу подсвечиваем эту ссылку
+                document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Плавно скроллим
+                heading.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // На время скролла отключаем обновление подсветки
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    // После скролла обновляем подсветку по факту
+                    updateActiveOnScroll();
+                }, 500);
+            });
+            
+            tocList.appendChild(link);
+        });
+        
+        // Функция обновления активного пункта (без мигания)
+        function updateActiveOnScroll() {
+            // Если сейчас идёт кликовый скролл — не обновляем
+            if (isScrolling) return;
+            
+            const headings = document.querySelectorAll('h1, h2');
+            const links = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            const scrollPosition = window.scrollY + 120;
+            
+            for (let i = 0; i < headings.length; i++) {
+                const heading = headings[i];
+                const headingTop = heading.offsetTop;
+                const headingBottom = headingTop + heading.offsetHeight;
+                
+                if (scrollPosition >= headingTop && scrollPosition < headingBottom) {
+                    current = heading.id;
+                    break;
+                }
+            }
+            
+            // Если нашли текущий заголовок — подсвечиваем его
+            if (current) {
+                links.forEach(link => {
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Полоска прогресса
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+        
+        // Обработчик скролла с защитой от частых вызовов
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            updateProgressBar();
+            
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    updateActiveOnScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Запускаем при загрузке
+        updateActiveOnScroll();
+        updateProgressBar();
+    });
+})();
+function copyCodeSnippet() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet2() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode2').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet3() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode3').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet4() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode4').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet5() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode5').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet6() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode6').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet7() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode7').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet8() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode8').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet9() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode9').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+
+
+
+
+
+</script>

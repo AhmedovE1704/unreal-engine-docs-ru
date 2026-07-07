@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Большие мировые координаты</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="uptab">
+        <img src="icons/epicgames2.png">
+        <img src="icons/ue5.png">
+    </div>
+    <pre>
+        
+        
+    </pre>
+    <div class="font-size-Base">
+       <h1>Большие мировые координаты<h1>
+    </div>
+    <div class="font-size-subBase">
+       <h2>Обзор больших мировых координат и их использования в Unreal Engine 5.<h2>
+    </div>
+
+    <div class="cardHero">  
+        <img src="icons/ue5-hero.png.png" height="150">
+    </div>
+    <div class="container">
+
+<!--МОДЕЛИРОВАНИЕ ЖИДКОСТИ И ГИДРОДИНАМИКА ЗАНОЧИНА-->
+<h1 class="contenth">Большие мировые координаты</h1>
+<h2 class="contenth">Обзор больших мировых координат и их использования в Unreal Engine 5.</h2>
+<p class="block-callout-inner">Узнайте, как использовать эту функцию Beta, но будьте осторожны при ее применении.</p>
+<p>Большие мировые координаты (LWC) обеспечивают поддержку типов данных с двойной точностью в Unreal Engine 5 (UE5), где во всех системах движка внедряются масштабные изменения для повышения точности вычислений с плавающей запятой. Эти системы включают архитектурную визуализацию, симуляцию, рендеринг (Niagara и код HLSL), а также проекты с масштабными мирами.</p>
+<p>В Unreal Engine 4(UE4) 32-битные типы с плавающей запятой ограничивали размер игрового мира. LWC значительно увеличивает размер ваших проектов, предоставляя 64-битные двойные значения для основных типов данных. Эти нововведения позволят вам создавать огромные миры и значительно повысят точность размещения и ориентации объектов. Большие мировые координаты готовы к использованию в новых проектах UE5.</p>
+
+
+
+
+<h2 class="contenth">Обновление вашего проекта до Unreal Engine 5</h2>
+<p>При обновлении проекта с UE4 до UE5 мы рекомендуем обратиться к Руководству по миграции, так как в некоторых случаях точность вашей кодовой базы может снизиться. Это не так критично для проектов, в которых не используются большие мировые координаты. Однако для проектов, в которых планируется использовать тип double для увеличения масштаба миров, мы рекомендуем воспользоваться Руководством по преобразованию больших мировых координат.</p>
+
+
+
+
+<h2 class="contenth">Эксперименты с большими мирами</h2>
+<p>По умолчанию размер WORLD_MAX составляет 88 миллионов километров, а проверка границ мира остается включенной.</p>
+<p class="block-callout-inner">Если вы хотите использовать размер UE4 WORLD_MAX в 21 километр, вы можете задать глобальное значение UE_USE_UE4_WORLD_MAX в EngineDefines.h, а затем перекомпилировать движок.</p>
+<p class="block-callout-inner">Это значение может измениться в будущих выпусках Unreal Engine, а также могут возникнуть проблемы со стабильностью, которые будут постоянно устраняться в процессе разработки Unreal Engine 5.</p>
+
+
+
+<h2 class="contenth">Blueprints</h2>
+<p>В Blueprints числа с плавающей запятой теперь отображаются с соответствующим подтипом одинарной или двойной точности. Этот новый тип поддерживает паритет функций с типами float и double. Все существующие Blueprints и типы Blueprints (UMG, Control Rig, Animation Blueprints) были неявно преобразованы для использования любого из этих типов точности без необходимости вносить изменения в предыдущие работы.</p>
+
+
+
+<h2 class="contenth">Интерфейс исходного кода</h2>
+<p>Теперь исходный код может использовать типы float и double. Unreal Header Tool(UHT) интерпретирует любой доступный в Blueprint тип с плавающей запятой в коде как Blueprint Float с соответствующим подтипом одинарной (C++ float) или двойной (C++ double) точности, что позволяет автоматически преобразовывать значения Float любой точности, поступающие от любого узла Blueprint.</p>
+
+
+
+<h2 class="contenth">Использование спецификаторов свойств UFUNCTION для значений Float</h2>
+<p>Любой метод, помеченный спецификатором свойства UFUNCTION и содержащий значение типа float, может привести к неточностям, поскольку значение Blueprint Float приводится к типу float с меньшей точностью. Важно проверить все существующие свойства UFUNCTION. Это поможет определить, нужно ли изменить параметры или возвращаемые значения на тип double, чтобы избежать проблем с точностью в будущем. Переключать типы float и double можно в любое время и в любом направлении.</p>
+<p class="block-callout-inner">Это касается всех узлов K2, которые вы могли создать или подключить в коде.</p>
+
+
+
+
+<h2 class="contenth">Рендеринг</h2>
+<p>В Unreal Engine есть различные координатные пространства и преобразования, которые описывают, как объект может существовать в мире. Мировое пространство(координаты вашего уровня / мира) и Локальное пространство(относительно конкретного объекта). Дополнительную информацию можно найти в документации по терминологии координатных пространств.</p>
+<p>Каждый объект, который можно разместить в мире вашего проекта, имеет три координатные оси, ориентацию и точку отсчета. См. Преобразование объектов для получения дополнительной информации.</p>
+
+
+
+
+<h2 class="contenth">Шейдеры</h2>
+<p>В UE5 появились новые типы HLSL, которые можно найти в файле LargeWorldCoordinates.ush . Дополнительную информацию о том, как преобразовать код шейдера в UE5, см. в документации по рендерингу в UE5.</p>
+
+
+
+
+
+<h2 class="contenth">Niagara</h2>
+<p>В Niagara реализация отличается от основной. Чтобы повысить производительность при работе с эффектами частиц, данные хранятся в виде набора чисел с плавающей запятой, а не в виде чисел двойной точности. Достаточно большой мир делится на ячейки сетки. Первое число с плавающей запятой определяет систему Ниагара в этой ячейке, а второе — ячейку, в которой находится система.</p>
+<p>Для хранения этой дополнительной информации предусмотрен новый тип данных Position для хранения векторов, на которые ссылаются частицы.Position. Дополнительную информацию можно найти в документе Крупные мировые координаты в Niagara.</p>
+
+
+
+
+<h2 class="contenth">Хаос</h2>
+<p>Физика разрушения хаоса продолжает работать без ограничений, используя двойной тип. Движок неявно выполняет приведение типов в обоих направлениях, например:</p>
+<div class="code-container">
+  <div class="code-body">
+    <div class="line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>
+    </div>
+    
+    <!-- Код -->
+        <div class="code-content" id="myCode9">FVector3f -> Chaos::FVec3!
+ 
+However, the only explicit cast is from:
+ 
+Chaos::FVec3 -> FVector3f
+//This would catch precision loss from downgrading to a float
+        </div>  
+  </div>
+
+  <!-- Кнопка копирования -->
+  <div class="copy-footer" onclick="copyCodeSnippet9()">
+    <span class="copy-icon">❐</span>
+    <span class="copy-text">Скопировать полный фрагмент кода</span>
+  </div>
+</div>
+<p>В последующих версиях Unreal Engine 5 при приведении FVector к типу float значения будут неявно преобразованы в тип double. Если вы хотите привести значение типа double к типу float, вам нужно будет выполнить преобразование вручную. Дополнительную информацию можно найти в Руководстве по преобразованию больших мировых координат.</p>
+
+
+<!--КАРТОЧКИ-->
+<!-- Карточка 1 -->
+    <a href="Обзор рендеринга больших мировых координат.html" class="card">
+        <div class="image-container">
+            <img src="icons/placeholder_topic.png.png" alt="Изображение">
+        </div>
+        <div class="content">
+            <div class="title">Обзор рендеринга больших мировых координат.</div>
+            <div class="description">Обзор рендеринга больших мировых координат.</div>
+        </div>
+    </a>
+    <!-- Карточка 2 -->
+    <a href="Руководство по преобразованию проектов с большими мировыми координатами.html" class="card">
+        <div class="image-container">
+            <img src="icons/placeholder_topic.png.png" alt="Изображение">
+        </div>
+        <div class="content">
+            <div class="title">Руководство по преобразованию проектов с большими мировыми координатами</div>
+            <div class="description">Этот документ поможет вам преобразовать проекты UE4 в UE5 с минимальными потерями точности.</div>
+        </div>
+    </a>
+<!--БОльшие мировые координаты закончины-->
+</div>
+</body>
+</html>
+<script>
+function copyCodeSnippet() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet2() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode2').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet3() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode3').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet4() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode4').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet5() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode5').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet6() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode6').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet7() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode7').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet8() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode8').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+  function copyCodeSnippet9() {
+    // Берем текст только из блока с кодом, игнорируя нумерацию и кнопку
+    const codeText = document.getElementById('myCode9').innerText;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+      const btn = document.querySelector('.copy-text');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Скопировано!';
+      setTimeout(() => {
+        btn.innerText = originalText;
+      }, 2000);
+    });
+  }
+
+
+
+
+
+
+</script>
