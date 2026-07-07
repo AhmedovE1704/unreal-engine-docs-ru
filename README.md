@@ -37,7 +37,7 @@
 ## Поддержать проект
 
 Если документация оказалась полезной, можешь поддержать меня:
-- [DonationAlerts]([https://www.donationalerts.com/r/ahmedove1704](https://www.donationalerts.com/r/ahmedove)) — разовый донат
+- [DonationAlerts][https://www.donationalerts.com/r/ahmedove1704](https://www.donationalerts.com/r/ahmedove) — разовый донат
 
 Любая поддержка помогает выделять больше времени на проект! 🙏
 
@@ -94,7 +94,7 @@ I'm just a student (currently in 10th grade), so I'd appreciate any help:
 ## Support the project
 
 If the documentation was useful, you can support me:
-- [DonationAlerts]([https://www.donationalerts.com/r/ahmedove1704](https://www.donationalerts.com/r/ahmedove)) - one-time donation
+- [DonationAlerts][https://www.donationalerts.com/r/ahmedove1704](https://www.donationalerts.com/r/ahmedove) - one-time donation
 
 Any support helps to allocate more time for the project! 🙏
 
