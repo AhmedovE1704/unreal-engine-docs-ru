@@ -1,3 +1,5 @@
+# CLOSED PROJECT - The offline version is now available
+
 # 📚 Unreal Engine Documentation (Русский)
 
 Привет! Я создаю документацию по Unreal Engine 5 на русском языке.
